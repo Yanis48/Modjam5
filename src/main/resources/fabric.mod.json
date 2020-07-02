@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "cameraobscura",
+  "version": "${version}",
+  
+  "name": "Camera Obscura",
+  "description": "Capture your favorite moments and share them with your friends!",
+  "authors": [
+    "ProfMobius",
+    "RazzleberryFox",
+    "Cojomax99"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/camera-obscura",
+    "sources": "https://github.com/ProfMobius/Modjam5",
+    "issues": "https://github.com/ProfMobius/Modjam5/issues"
+  },
+  
+  "license": "Apache-2.0",
+  "icon": "assets/cameraobscura/icon.png",
+  
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "team.thegoldenhoe.cameraobscura.CameraObscura"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.8.8",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  }
+}

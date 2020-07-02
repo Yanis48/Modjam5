@@ -1,28 +1,24 @@
 # gradle
-/build/
-.gradle
-
-# forge
-config/
-saves/
+.gradle/
+build/
+out/
+classes/
 
 # eclipse
-.classpath
-.project
-.settings
-bin
-logs
-eclipse
 *.launch
 
-# run
-run
-
-# intellij
-.idea
-out
+# idea
+.idea/
 *.iml
 *.ipr
 *.iws
 
-Thumbs.db
+# vscode
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# fabric
+run/

@@ -63,7 +63,7 @@ public class COBlocks {
 	}
 
 	private static Block register(String name, Block block) {
-		Registry.register(Registry.ITEM, new Identifier(Info.MODID, name), new BlockItem(block, new Settings()));
+		Registry.register(Registry.ITEM, new Identifier(Info.MODID, name), new BlockItem(block, new Settings().group(COItemGroups.MAIN)));
 		return Registry.register(Registry.BLOCK, new Identifier(Info.MODID, name), block);
 	}
 }

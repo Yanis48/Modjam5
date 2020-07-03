@@ -7,13 +7,13 @@ import net.minecraft.util.registry.Registry;
 import team.thegoldenhoe.cameraobscura.Info;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilter;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilters;
-import team.thegoldenhoe.cameraobscura.common.item.ItemFilter;
-import team.thegoldenhoe.cameraobscura.common.item.ItemPolaroidSingle;
-import team.thegoldenhoe.cameraobscura.common.item.ItemPolaroidStack;
-import team.thegoldenhoe.cameraobscura.common.item.ItemSDCard;
-import team.thegoldenhoe.cameraobscura.common.item.ItemVintagePaper;
 import team.thegoldenhoe.cameraobscura.item.CameraItem;
+import team.thegoldenhoe.cameraobscura.item.FilterItem;
 import team.thegoldenhoe.cameraobscura.item.FrameBrushItem;
+import team.thegoldenhoe.cameraobscura.item.PolaroidPhotoItem;
+import team.thegoldenhoe.cameraobscura.item.PolaroidStackItem;
+import team.thegoldenhoe.cameraobscura.item.SdCardItem;
+import team.thegoldenhoe.cameraobscura.item.VintagePhotoItem;
 
 public class COItems {
 
@@ -21,10 +21,10 @@ public class COItems {
 	public static final Item POLAROID_CAMERA = register("polaroid_camera", new CameraItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
 	public static final Item YE_OLDE_CAMERA = register("ye_olde_camera", new CameraItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
 
-	public static final Item SD_CARD = register("sd_card", new ItemSDCard(new Settings().maxCount(1).group(COItemGroups.MAIN)));
-	public static final Item POLAROID_STACK = register("polaroid_stack", new ItemPolaroidStack(new Settings().maxCount(1).group(COItemGroups.MAIN)));
-	public static final Item POLAROID_PHOTO = register("polaroid_photo", new ItemPolaroidSingle(new Settings().maxCount(1).group(COItemGroups.MAIN)));
-	public static final Item VINTAGE_PHOTO = register("vintage_photo", new ItemVintagePaper(new Settings().maxCount(1).group(COItemGroups.MAIN)));
+	public static final Item SD_CARD = register("sd_card", new SdCardItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
+	public static final Item POLAROID_STACK = register("polaroid_stack", new PolaroidStackItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
+	public static final Item POLAROID_PHOTO = register("polaroid_photo", new PolaroidPhotoItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
+	public static final Item VINTAGE_PHOTO = register("vintage_photo", new VintagePhotoItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
 
 	public static final Item SEPIA_FILTER = registerFilter("sepia_filter", PhotoFilters.SEPIA);
 	public static final Item GLOOMY_FILTER = registerFilter("gloomy_filter", PhotoFilters.BLACK_AND_WHITE);
@@ -37,7 +37,7 @@ public class COItems {
 	public static final Item FRAME_BRUSH = register("frame_brush", new FrameBrushItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
 
 	private static Item registerFilter(String name, PhotoFilter filter) {
-		return register(name, new ItemFilter(new Settings().maxCount(1).group(COItemGroups.MAIN)));
+		return register(name, new FilterItem(filter, new Settings().maxCount(1).group(COItemGroups.MAIN)));
 	}
 
 	private static Item register(String name, Item item) {

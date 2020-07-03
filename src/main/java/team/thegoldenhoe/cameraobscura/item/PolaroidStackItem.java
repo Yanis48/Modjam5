@@ -1,47 +1,43 @@
-package team.thegoldenhoe.cameraobscura.common.item;
+package team.thegoldenhoe.cameraobscura.item;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT.PolaroidStackStorage;
 
-public class ItemPolaroidStack extends Item {
+public class PolaroidStackItem extends Item {
 
-	public ItemPolaroidStack() {
-		setMaxStackSize(1);
+	public PolaroidStackItem(Settings settings) {
+		super(settings);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
+	@Environment(EnvType.CLIENT)
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
 		int numPrintsRemaining = PolaroidStackStorage.MAX_SAVES;
-		if (stack.getTagCompound() == null) {
-			tooltip.add("Empty");
+		if (stack.getTag() == null) {
+			tooltip.add(new LiteralText("Empty"));
 		}
 
 		ICameraStorageNBT.PolaroidStackStorage storage = stack.getCapability(CameraCapabilities.getPolaroidStackCapability(), null);
 		if (storage != null) {
 			ArrayList<String> paths = storage.getSavedImagePaths();
 			numPrintsRemaining = storage.getMaxSaves() - paths.size();
-			tooltip.add(TextFormatting.AQUA.toString() + TextFormatting.BOLD + "Prints Remaining: " + numPrintsRemaining);
-			tooltip.add(TextFormatting.DARK_PURPLE.toString() + TextFormatting.ITALIC + "Usable in polaroid camera");
+			tooltip.add(new LiteralText("Prints Remaining: " + numPrintsRemaining).formatted(Formatting.AQUA, Formatting.BOLD));
+			tooltip.add(new LiteralText("Usable in polaroid camera").formatted(Formatting.DARK_PURPLE, Formatting.ITALIC));
 			if (!storage.canSave()) {
-				tooltip.add(TextFormatting.ITALIC + "Contains Photo");	
+				tooltip.add(new LiteralText("Contains Photo").formatted(Formatting.ITALIC));
 			}
 		}
 	}
@@ -70,5 +66,4 @@ public class ItemPolaroidStack extends Item {
 			return ret;
 		});
 	}
-
 }

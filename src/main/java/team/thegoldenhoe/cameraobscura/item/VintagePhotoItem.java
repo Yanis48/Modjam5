@@ -1,41 +1,37 @@
-package team.thegoldenhoe.cameraobscura.common.item;
+package team.thegoldenhoe.cameraobscura.item;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT.VintageStorage;
 
-public class ItemVintagePaper extends Item {
+public class VintagePhotoItem extends Item {
 
-	public ItemVintagePaper() {
-		setMaxStackSize(1);
+	public VintagePhotoItem(Settings settings) {
+		super(settings);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
-		if (stack.getTagCompound() == null) {
-			tooltip.add("Empty");
-			tooltip.add(TextFormatting.DARK_PURPLE.toString() + TextFormatting.ITALIC + "Usable in vintage camera");
+	@Environment(EnvType.CLIENT)
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+		if (stack.getTag() == null) {
+			tooltip.add(new LiteralText("Empty"));
+			tooltip.add(new LiteralText("Usable in vintage camera").formatted(Formatting.DARK_PURPLE, Formatting.ITALIC));
 			return;
 		}
 
-		if (stack.getTagCompound().hasKey("Photo")) {
-			tooltip.add(TextFormatting.ITALIC + "Contains photo");
+		if (stack.getTag().contains("Photo")) {
+			tooltip.add(new LiteralText("Contains Photo").formatted(Formatting.ITALIC));
 		}
 	}
 
@@ -68,5 +64,4 @@ public class ItemVintagePaper extends Item {
 			return ret;
 		});
 	}
-
 }

@@ -1,45 +1,41 @@
-package team.thegoldenhoe.cameraobscura.common.item;
+package team.thegoldenhoe.cameraobscura.item;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT.SDCardStorage;
 
-public class ItemSDCard extends Item {
+public class SdCardItem extends Item {
 
-	public ItemSDCard() {
-		setMaxStackSize(1);
+	public SdCardItem(Settings settings) {
+		super(settings);
 	}
-	
+
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
+	@Environment(EnvType.CLIENT)
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
 		int numShotsRemaining = SDCardStorage.MAX_SAVES;
-		if (stack.getTagCompound() == null) {
-			tooltip.add("Empty");
+		if (stack.getTag() == null) {
+			tooltip.add(new LiteralText("Empty"));
 		}
 
 		ICameraStorageNBT.SDCardStorage storage = stack.getCapability(CameraCapabilities.getSDCardStorageCapability(), null);
 		if (storage != null) {
 			ArrayList<String> paths = storage.getSavedImagePaths();
 			numShotsRemaining = storage.getMaxSaves() - paths.size();
-			tooltip.add(TextFormatting.AQUA.toString() + TextFormatting.BOLD + "Shots Remaining: " + numShotsRemaining);
-			tooltip.add(TextFormatting.WHITE.toString() + TextFormatting.ITALIC + "Usable in digital camera");
+			tooltip.add(new LiteralText("Shots Remaining: " + numShotsRemaining).formatted(Formatting.AQUA, Formatting.BOLD));
+			tooltip.add(new LiteralText("Usable in digital camera").formatted(Formatting.WHITE, Formatting.ITALIC));
 		}
 	}
 

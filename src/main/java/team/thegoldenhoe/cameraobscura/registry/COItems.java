@@ -7,7 +7,6 @@ import net.minecraft.util.registry.Registry;
 import team.thegoldenhoe.cameraobscura.Info;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilter;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilters;
-import team.thegoldenhoe.cameraobscura.common.network.CameraType;
 import team.thegoldenhoe.cameraobscura.item.CameraItem;
 import team.thegoldenhoe.cameraobscura.item.FilterItem;
 import team.thegoldenhoe.cameraobscura.item.FrameBrushItem;
@@ -15,6 +14,7 @@ import team.thegoldenhoe.cameraobscura.item.PolaroidPhotoItem;
 import team.thegoldenhoe.cameraobscura.item.PolaroidStackItem;
 import team.thegoldenhoe.cameraobscura.item.SdCardItem;
 import team.thegoldenhoe.cameraobscura.item.VintagePhotoItem;
+import team.thegoldenhoe.cameraobscura.util.CameraType;
 
 public class COItems {
 

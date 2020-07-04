@@ -1,8 +1,8 @@
 package team.thegoldenhoe.cameraobscura.screen;
 
 import net.minecraft.entity.player.PlayerInventory;
-import team.thegoldenhoe.cameraobscura.common.network.CameraType;
 import team.thegoldenhoe.cameraobscura.registry.COScreenHandlers;
+import team.thegoldenhoe.cameraobscura.util.CameraType;
 
 public class PolaroidCameraScreenHandler extends SingleSlotCameraScreenHandler {
 

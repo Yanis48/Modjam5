@@ -1,14 +1,12 @@
 package team.thegoldenhoe.cameraobscura.screen;
 
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.util.Hand;
-import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
+import team.thegoldenhoe.cameraobscura.common.network.CameraType;
 import team.thegoldenhoe.cameraobscura.registry.COScreenHandlers;
 
-public class VintageCameraScreenHandler extends SingleSlotCameraScreenHandler implements CameraScreenHandler {
+public class VintageCameraScreenHandler extends SingleSlotCameraScreenHandler {
 
-	public VintageCameraScreenHandler(int syncId, PlayerInventory playerInv, ScreenHandlerContext context, Hand hand, String bgName) {
-		super(COScreenHandlers.VINTAGE_CAMERA, syncId, playerInv, context, hand, bgName, CameraTypes.VINTAGE);
+	public VintageCameraScreenHandler(int syncId, PlayerInventory playerInv) {
+		super(COScreenHandlers.VINTAGE_CAMERA, syncId, playerInv, CameraType.VINTAGE);
 	}
 }

@@ -8,21 +8,22 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.Hand;
-import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
+import team.thegoldenhoe.cameraobscura.common.network.CameraType;
 import team.thegoldenhoe.cameraobscura.item.PolaroidStackItem;
 import team.thegoldenhoe.cameraobscura.item.VintagePhotoItem;
 
-public class SingleSlotCameraScreenHandler extends ScreenHandler implements CameraScreenHandler {
+public class SingleSlotCameraScreenHandler extends ScreenHandler {
 	protected final ScreenHandlerContext context;
 	protected Inventory inventory;
-	protected final String bgName;
 
-	public SingleSlotCameraScreenHandler(ScreenHandlerType<?> screenType, int syncId, PlayerInventory playerInv, ScreenHandlerContext context, Hand hand, String bgName, CameraTypes type) {
+	public SingleSlotCameraScreenHandler(ScreenHandlerType<?> screenType, int syncId, PlayerInventory playerInv, CameraType type) {
+		this(screenType, syncId, playerInv, ScreenHandlerContext.EMPTY, type);
+	}
+
+	public SingleSlotCameraScreenHandler(ScreenHandlerType<?> screenType, int syncId, PlayerInventory playerInv, ScreenHandlerContext context, CameraType type) {
 		super(screenType, syncId);
 		this.context = context;
 		this.inventory = playerInv;
-		this.bgName = bgName;
 		
 		// Stacks slot
 		this.addSlot(new Slot(this.inventory, 0, 80, 53) {
@@ -33,9 +34,9 @@ public class SingleSlotCameraScreenHandler extends ScreenHandler implements Came
 			public boolean canInsert(ItemStack stack) {
 				// this is hacky, but...modjam!
 				boolean initialReqs = super.canInsert(stack) && !this.hasStack();
-				if (type == CameraTypes.POLAROID) {
+				if (type == CameraType.POLAROID) {
 					return initialReqs && stack.getItem() instanceof PolaroidStackItem;
-				} else if (type == CameraTypes.VINTAGE) {
+				} else if (type == CameraType.VINTAGE) {
 					return initialReqs && stack.getItem() instanceof VintagePhotoItem;
 				}
 				
@@ -86,10 +87,5 @@ public class SingleSlotCameraScreenHandler extends ScreenHandler implements Came
 		}
 
 		return stack;
-	}
-
-	@Override
-	public String getScreenBackground() {
-		return this.bgName;
 	}
 }

@@ -7,16 +7,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.Hand;
 import team.thegoldenhoe.cameraobscura.item.FilterItem;
 import team.thegoldenhoe.cameraobscura.item.SdCardItem;
 import team.thegoldenhoe.cameraobscura.registry.COScreenHandlers;
 
-public class DigitalCameraScreenHandler extends ScreenHandler implements CameraScreenHandler {
+public class DigitalCameraScreenHandler extends ScreenHandler {
 	protected final ScreenHandlerContext context;
 	private Inventory inventory;
 
-	public DigitalCameraScreenHandler(int syncId, PlayerInventory playerInv, ScreenHandlerContext context, Hand hand) {
+	public DigitalCameraScreenHandler(int syncId, PlayerInventory playerInv) {
+		this(syncId, playerInv, ScreenHandlerContext.EMPTY);
+	}
+
+	public DigitalCameraScreenHandler(int syncId, PlayerInventory playerInv, ScreenHandlerContext context) {
 		super(COScreenHandlers.DIGITAL_CAMERA, syncId);
 		this.context = context;
 		this.inventory = playerInv;
@@ -97,10 +100,5 @@ public class DigitalCameraScreenHandler extends ScreenHandler implements CameraS
 		}
 
 		return stack;
-	}
-
-	@Override
-	public String getScreenBackground() {
-		return "camera_digital";
 	}
 }

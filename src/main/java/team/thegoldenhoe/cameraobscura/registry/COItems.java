@@ -7,6 +7,7 @@ import net.minecraft.util.registry.Registry;
 import team.thegoldenhoe.cameraobscura.Info;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilter;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilters;
+import team.thegoldenhoe.cameraobscura.common.network.CameraType;
 import team.thegoldenhoe.cameraobscura.item.CameraItem;
 import team.thegoldenhoe.cameraobscura.item.FilterItem;
 import team.thegoldenhoe.cameraobscura.item.FrameBrushItem;
@@ -17,9 +18,9 @@ import team.thegoldenhoe.cameraobscura.item.VintagePhotoItem;
 
 public class COItems {
 
-	public static final Item DIGITAL_CAMERA = register("digital_camera", new CameraItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
-	public static final Item POLAROID_CAMERA = register("polaroid_camera", new CameraItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
-	public static final Item YE_OLDE_CAMERA = register("ye_olde_camera", new CameraItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
+	public static final Item DIGITAL_CAMERA = register("digital_camera", new CameraItem(CameraType.DIGITAL, new Settings().maxCount(1).group(COItemGroups.MAIN)));
+	public static final Item POLAROID_CAMERA = register("polaroid_camera", new CameraItem(CameraType.POLAROID, new Settings().maxCount(1).group(COItemGroups.MAIN)));
+	public static final Item VINTAGE_CAMERA = register("vintage_camera", new CameraItem(CameraType.VINTAGE, new Settings().maxCount(1).group(COItemGroups.MAIN)));
 
 	public static final Item SD_CARD = register("sd_card", new SdCardItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));
 	public static final Item POLAROID_STACK = register("polaroid_stack", new PolaroidStackItem(new Settings().maxCount(1).group(COItemGroups.MAIN)));

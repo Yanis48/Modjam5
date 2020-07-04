@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "cameraobscura:items/photograph_bw"
-    }
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "cameraobscura:item/vintage_photo"
+  }
 }

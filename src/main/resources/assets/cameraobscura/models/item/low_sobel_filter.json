@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "cameraobscura:item/polaroid_photo"
+    "layer0": "cameraobscura:item/low_sobel_filter"
   }
 }

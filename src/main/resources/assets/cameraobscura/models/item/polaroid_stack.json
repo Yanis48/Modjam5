@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "cameraobscura:items/polaroid_stack"
-    }
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "cameraobscura:item/polaroid_stack"
+  }
 }

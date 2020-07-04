@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "cameraobscura:frame",
+    "cameraobscura:white_frame",
+    "cameraobscura:orange_frame",
+    "cameraobscura:magenta_frame",
+    "cameraobscura:light_blue_frame",
+    "cameraobscura:yellow_frame",
+    "cameraobscura:lime_frame",
+    "cameraobscura:pink_frame",
+    "cameraobscura:gray_frame",
+    "cameraobscura:light_gray_frame",
+    "cameraobscura:cyan_frame",
+    "cameraobscura:purple_frame",
+    "cameraobscura:blue_frame",
+    "cameraobscura:brown_frame",
+    "cameraobscura:green_frame",
+    "cameraobscura:red_frame",
+    "cameraobscura:black_frame"
+  ]
+}

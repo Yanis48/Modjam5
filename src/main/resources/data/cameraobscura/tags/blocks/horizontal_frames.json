@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "cameraobscura:horizontal_frame",
+    "cameraobscura:white_horizontal_frame",
+    "cameraobscura:orange_horizontal_frame",
+    "cameraobscura:magenta_horizontal_frame",
+    "cameraobscura:light_blue_horizontal_frame",
+    "cameraobscura:yellow_horizontal_frame",
+    "cameraobscura:lime_horizontal_frame",
+    "cameraobscura:pink_horizontal_frame",
+    "cameraobscura:gray_horizontal_frame",
+    "cameraobscura:light_gray_horizontal_frame",
+    "cameraobscura:cyan_horizontal_frame",
+    "cameraobscura:purple_horizontal_frame",
+    "cameraobscura:blue_horizontal_frame",
+    "cameraobscura:brown_horizontal_frame",
+    "cameraobscura:green_horizontal_frame",
+    "cameraobscura:red_horizontal_frame",
+    "cameraobscura:black_horizontal_frame"
+  ]
+}

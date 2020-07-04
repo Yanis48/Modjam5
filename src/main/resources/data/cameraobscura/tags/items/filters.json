@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "cameraobscura:sepia_filter",
+    "cameraobscura:gloomy_filter",
+    "cameraobscura:bright_and_happy_filter",
+    "cameraobscura:retro_filter",
+    "cameraobscura:high_contrast_filter",
+    "cameraobscura:low_sobel_filter",
+    "cameraobscura:high_sobel_filter"
+  ]
+}

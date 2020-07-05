@@ -4,7 +4,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
@@ -12,7 +11,7 @@ import team.thegoldenhoe.cameraobscura.item.PolaroidStackItem;
 import team.thegoldenhoe.cameraobscura.item.VintagePhotoItem;
 import team.thegoldenhoe.cameraobscura.util.CameraType;
 
-public class SingleSlotCameraScreenHandler extends ScreenHandler {
+public abstract class SingleSlotCameraScreenHandler extends CameraScreenHandler {
 	protected final ScreenHandlerContext context;
 	protected Inventory inventory;
 

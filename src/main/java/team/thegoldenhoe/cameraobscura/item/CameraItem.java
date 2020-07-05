@@ -10,9 +10,6 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import team.thegoldenhoe.cameraobscura.screen.DigitalCameraScreenHandler;
-import team.thegoldenhoe.cameraobscura.screen.PolaroidCameraScreenHandler;
-import team.thegoldenhoe.cameraobscura.screen.VintageCameraScreenHandler;
 import team.thegoldenhoe.cameraobscura.util.CameraType;
 
 public class CameraItem extends Item {
@@ -39,16 +36,7 @@ public class CameraItem extends Item {
 
 	private NamedScreenHandlerFactory createScreenHandlerFactory() {
 		return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> {
-			switch (this.type) {
-			case DIGITAL:
-				return new DigitalCameraScreenHandler(syncId, inventory);
-			case POLAROID:
-				return new PolaroidCameraScreenHandler(syncId, inventory);
-			case VINTAGE:
-				return new VintageCameraScreenHandler(syncId, inventory);
-			default:
-				return null;
-			}
+			return this.type.getScreenHandlerType().create(syncId, inventory);
 		}, new LiteralText(""));
 	}
 }

@@ -4,14 +4,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import team.thegoldenhoe.cameraobscura.item.FilterItem;
 import team.thegoldenhoe.cameraobscura.item.SdCardItem;
 import team.thegoldenhoe.cameraobscura.registry.COScreenHandlers;
 
-public class DigitalCameraScreenHandler extends ScreenHandler {
+public class DigitalCameraScreenHandler extends CameraScreenHandler {
+	private static final String DIGITAL_CAMERA_TEXTURE = "digital_camera";
 	protected final ScreenHandlerContext context;
 	private Inventory inventory;
 
@@ -100,5 +100,10 @@ public class DigitalCameraScreenHandler extends ScreenHandler {
 		}
 
 		return stack;
+	}
+
+	@Override
+	public String getScreenBackground() {
+		return DIGITAL_CAMERA_TEXTURE;
 	}
 }

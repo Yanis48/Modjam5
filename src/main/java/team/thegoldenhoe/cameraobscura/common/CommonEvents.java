@@ -10,8 +10,8 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import team.thegoldenhoe.cameraobscura.Utils;
 import team.thegoldenhoe.cameraobscura.common.network.PhotoDataHandler;
+import team.thegoldenhoe.cameraobscura.util.Utils;
 
 public class CommonEvents {
 

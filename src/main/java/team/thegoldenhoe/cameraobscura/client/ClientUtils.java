@@ -1,16 +1,17 @@
 package team.thegoldenhoe.cameraobscura.client;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.Identifier;
 import team.thegoldenhoe.cameraobscura.Info;
 
-@SideOnly(Side.CLIENT)
+@Environment(EnvType.CLIENT)
 public class ClientUtils {
-	public static ResourceLocation bindTextureGui(String path) {
-		ResourceLocation loc = new ResourceLocation(Info.MODID, String.format("textures/gui/%s.png", path));
-		Minecraft.getMinecraft().getTextureManager().bindTexture(loc);
-		return loc;
+
+	public static Identifier bindTextureGui(String path) {
+		Identifier id = new Identifier(Info.MODID, String.format("textures/gui/%s.png", path));
+		MinecraftClient.getInstance().getTextureManager().bindTexture(id);
+		return id;
 	}
 }

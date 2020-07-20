@@ -24,10 +24,10 @@ import net.minecraft.server.management.PlayerList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import team.thegoldenhoe.cameraobscura.CSModelMetadata;
-import team.thegoldenhoe.cameraobscura.Utils;
 import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraNBT;
 import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
+import team.thegoldenhoe.cameraobscura.util.Utils;
 import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
 public class PhotoDataHandler {

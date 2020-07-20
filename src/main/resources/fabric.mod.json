@@ -23,6 +23,9 @@
   "entrypoints": {
     "main": [
       "team.thegoldenhoe.cameraobscura.CameraObscura"
+    ],
+    "client": [
+      "team.thegoldenhoe.cameraobscura.client.CameraObscuraClient"
     ]
   },
   "depends": {

@@ -10,11 +10,9 @@ import team.thegoldenhoe.cameraobscura.client.ClientUtils;
 import team.thegoldenhoe.cameraobscura.screen.CameraScreenHandler;
 
 public class CameraScreen<T extends CameraScreenHandler> extends HandledScreen<T> {
-	private T handler;
 
 	public CameraScreen(T handler, PlayerInventory playerInventory, Text title) {
 		super(handler, playerInventory, title);
-		this.handler = handler;
 	}
 
 	@Override

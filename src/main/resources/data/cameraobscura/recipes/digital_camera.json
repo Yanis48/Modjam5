@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "cameraobscura:csitem",
-    "data": 7
+    "item": "cameraobscura:digital_camera"
   },
   "pattern": [
     "BDB",
@@ -13,11 +12,10 @@
       "item": "minecraft:glass_pane"
   	},
     "B": {
-      "item": "minecraft:wool",
-      "data": 15
+      "item": "minecraft:black_wool"
     },
     "D": {
-      "item": "#GEMDIAMOND"
+      "item": "minecraft:diamond"
     }
   }
 }

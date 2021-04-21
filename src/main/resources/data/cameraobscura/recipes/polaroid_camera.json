@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "cameraobscura:csitem",
-    "data": 3
+    "item": "cameraobscura:polaroid_camera"
   },
   "pattern": [
     "XXY",
@@ -11,18 +10,16 @@
   "type": "minecraft:crafting_shaped",
   "key": {
   	"A": {
-      "item": "minecraft:wool",
-      "data": 0
+      "item": "minecraft:white_wool"
   	},
     "X": {
-      "item": "minecraft:wool",
-      "data": 8
+      "item": "minecraft:light_gray_wool"
     },
     "Y": {
       "item": "minecraft:glass_pane"
     },
     "Z": {
-      "item": "#REDSTONEDUST"
+      "item": "minecraft:redstone"
     }
   }
 }

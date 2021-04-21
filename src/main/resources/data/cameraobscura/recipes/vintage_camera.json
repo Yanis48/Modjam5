@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "cameraobscura:csitem",
-    "data": 6
+    "item": "cameraobscura:vintage_camera"
   },
   "pattern": [
     "BBA",
@@ -14,11 +13,10 @@
       "item": "minecraft:glass_pane"
   	},
     "B": {
-      "item": "minecraft:wool",
-      "data": 15
+      "item": "minecraft:black_wool"
     },
     "C": {
-      "item": "#REDSTONEDUST"
+      "item": "minecraft:redstone"
     }
   }
 }

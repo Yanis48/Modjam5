@@ -13,7 +13,7 @@
       "item": "minecraft:paper"
     },
     "Y": {
-      "item": "#DYEBLACK"
+      "item": "minecraft:black_dye"
     }
   }
 }

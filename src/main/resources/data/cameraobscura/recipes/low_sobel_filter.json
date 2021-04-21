@@ -1,22 +1,19 @@
 {
   "result": {
-    "item": "cameraobscura:sd_card"
+    "item": "cameraobscura:low_sobel_filter"
   },
   "pattern": [
-    "GGG",
-    "XRX",
-    "XXX"
+    " X ",
+    "XYX",
+    " X "
   ],
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
       "item": "minecraft:black_stained_glass_pane"
     },
-    "R": {
-      "item": "minecraft:redstone"
-    },
-    "G": {
-      "item": "minecraft:gold_ingot"
+    "Y": {
+      "item": "minecraft:black_stained_glass_pane"
     }
   }
 }

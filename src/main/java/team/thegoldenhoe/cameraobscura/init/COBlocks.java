@@ -4,8 +4,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item.Settings;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -63,7 +61,6 @@ public class COBlocks {
 	}
 
 	private static Block register(String name, Block block) {
-		Registry.register(Registry.ITEM, new Identifier(Info.MODID, name), new BlockItem(block, new Settings().group(COItemGroups.MAIN)));
 		return Registry.register(Registry.BLOCK, new Identifier(Info.MODID, name), block);
 	}
 }

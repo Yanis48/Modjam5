@@ -1,5 +1,7 @@
 package team.thegoldenhoe.cameraobscura.init;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.util.Identifier;
@@ -41,7 +43,49 @@ public class COItems {
 		return register(name, new FilterItem(filter, new Settings().maxCount(1).group(COItemGroups.MAIN)));
 	}
 
+	private static Item registerFrame(Block block) {
+		return register(Registry.BLOCK.getId(block).getPath(), new BlockItem(block, new Settings().group(COItemGroups.MAIN)));
+	}
+
 	private static Item register(String name, Item item) {
 		return Registry.register(Registry.ITEM, new Identifier(Info.MODID, name), item);
+	}
+
+	static {
+		registerFrame(COBlocks.FRAME);
+		registerFrame(COBlocks.WHITE_FRAME);
+		registerFrame(COBlocks.ORANGE_FRAME);
+		registerFrame(COBlocks.MAGENTA_FRAME);
+		registerFrame(COBlocks.LIGHT_BLUE_FRAME);
+		registerFrame(COBlocks.YELLOW_FRAME);
+		registerFrame(COBlocks.LIME_FRAME);
+		registerFrame(COBlocks.PINK_FRAME);
+		registerFrame(COBlocks.GRAY_FRAME);
+		registerFrame(COBlocks.LIGHT_GRAY_FRAME);
+		registerFrame(COBlocks.CYAN_FRAME);
+		registerFrame(COBlocks.PURPLE_FRAME);
+		registerFrame(COBlocks.BLUE_FRAME);
+		registerFrame(COBlocks.BROWN_FRAME);
+		registerFrame(COBlocks.GREEN_FRAME);
+		registerFrame(COBlocks.RED_FRAME);
+		registerFrame(COBlocks.BLACK_FRAME);
+		registerFrame(COBlocks.HORIZONTAL_FRAME);
+		registerFrame(COBlocks.WHITE_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.ORANGE_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.MAGENTA_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.LIGHT_BLUE_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.YELLOW_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.LIME_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.PINK_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.GRAY_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.LIGHT_GRAY_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.CYAN_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.PURPLE_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.BLUE_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.BROWN_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.GREEN_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.RED_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.BLACK_HORIZONTAL_FRAME);
+		registerFrame(COBlocks.HANGING_FRAME);
 	}
 }

@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.registry;
+package team.thegoldenhoe.cameraobscura.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;

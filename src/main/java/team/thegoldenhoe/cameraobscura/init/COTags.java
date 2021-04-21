@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.registry;
+package team.thegoldenhoe.cameraobscura.init;
 
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;

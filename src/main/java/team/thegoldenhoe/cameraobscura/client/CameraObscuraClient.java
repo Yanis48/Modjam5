@@ -3,7 +3,7 @@ package team.thegoldenhoe.cameraobscura.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import team.thegoldenhoe.cameraobscura.client.screen.CameraScreen;
-import team.thegoldenhoe.cameraobscura.registry.COScreenHandlers;
+import team.thegoldenhoe.cameraobscura.init.COScreenHandlers;
 
 public class CameraObscuraClient implements ClientModInitializer {
 

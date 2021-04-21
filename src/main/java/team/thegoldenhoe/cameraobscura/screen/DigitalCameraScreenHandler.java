@@ -8,7 +8,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import team.thegoldenhoe.cameraobscura.item.FilterItem;
 import team.thegoldenhoe.cameraobscura.item.SdCardItem;
-import team.thegoldenhoe.cameraobscura.registry.COScreenHandlers;
+import team.thegoldenhoe.cameraobscura.init.COScreenHandlers;
 
 public class DigitalCameraScreenHandler extends CameraScreenHandler {
 	private static final String DIGITAL_CAMERA_TEXTURE = "digital_camera";

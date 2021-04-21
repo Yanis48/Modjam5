@@ -1,6 +1,6 @@
 package team.thegoldenhoe.cameraobscura.block.entity;
 
-import team.thegoldenhoe.cameraobscura.registry.COBlockEntities;
+import team.thegoldenhoe.cameraobscura.init.COBlockEntities;
 
 public class HorizontalFrameBlockEntity extends AbstractFrameBlockEntity {
 

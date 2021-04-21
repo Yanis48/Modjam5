@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.registry;
+package team.thegoldenhoe.cameraobscura.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;

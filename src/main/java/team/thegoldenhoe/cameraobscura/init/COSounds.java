@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.registry;
+package team.thegoldenhoe.cameraobscura.init;
 
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;

@@ -1,4 +1,4 @@
-package team.thegoldenhoe.cameraobscura.registry;
+package team.thegoldenhoe.cameraobscura.init;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;

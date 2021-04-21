@@ -2,8 +2,8 @@ package team.thegoldenhoe.cameraobscura.util;
 
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
-import team.thegoldenhoe.cameraobscura.registry.COScreenHandlers;
-import team.thegoldenhoe.cameraobscura.registry.COSounds;
+import team.thegoldenhoe.cameraobscura.init.COScreenHandlers;
+import team.thegoldenhoe.cameraobscura.init.COSounds;
 
 public enum CameraType {
 	DIGITAL("digital_camera", COScreenHandlers.DIGITAL_CAMERA, COSounds.DIGITAL),

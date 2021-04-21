@@ -1,6 +1,5 @@
 package team.thegoldenhoe.cameraobscura.item;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.fabricmc.api.EnvType;
@@ -12,11 +11,10 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
-import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
-import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT.SDCardStorage;
+import team.thegoldenhoe.cameraobscura.item.nbt.CameraData;
 
 public class SdCardItem extends Item {
+	private static final int MAX_STORAGE = 32;
 
 	public SdCardItem(Settings settings) {
 		super(settings);
@@ -25,18 +23,13 @@ public class SdCardItem extends Item {
 	@Override
 	@Environment(EnvType.CLIENT)
 	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-		int numShotsRemaining = SDCardStorage.MAX_SAVES;
 		if (stack.getTag() == null) {
 			tooltip.add(new LiteralText("Empty"));
 		}
 
-		ICameraStorageNBT.SDCardStorage storage = stack.getCapability(CameraCapabilities.getSDCardStorageCapability(), null);
-		if (storage != null) {
-			ArrayList<String> paths = storage.getSavedImagePaths();
-			numShotsRemaining = storage.getMaxSaves() - paths.size();
-			tooltip.add(new LiteralText("Shots Remaining: " + numShotsRemaining).formatted(Formatting.AQUA, Formatting.BOLD));
-			tooltip.add(new LiteralText("Usable in digital camera").formatted(Formatting.WHITE, Formatting.ITALIC));
-		}
+		int remaining = MAX_STORAGE - CameraData.getUses(stack);
+		tooltip.add(new LiteralText("Shots Remaining: " + remaining).formatted(Formatting.AQUA, Formatting.BOLD));
+		tooltip.add(new LiteralText("Usable in digital camera").formatted(Formatting.WHITE, Formatting.ITALIC));
 	}
 
 	@Override

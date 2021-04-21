@@ -11,9 +11,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
-import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
-import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT.VintageStorage;
+import team.thegoldenhoe.cameraobscura.item.nbt.CameraData;
 
 public class VintagePhotoItem extends Item {
 
@@ -30,7 +28,7 @@ public class VintagePhotoItem extends Item {
 			return;
 		}
 
-		if (stack.getTag().contains("Photo")) {
+		if (CameraData.getPhoto(stack) != null) {
 			tooltip.add(new LiteralText("Contains Photo").formatted(Formatting.ITALIC));
 		}
 	}

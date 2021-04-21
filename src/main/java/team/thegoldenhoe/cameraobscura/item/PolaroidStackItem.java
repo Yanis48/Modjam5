@@ -1,6 +1,5 @@
 package team.thegoldenhoe.cameraobscura.item;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.fabricmc.api.EnvType;
@@ -12,11 +11,10 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
-import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT;
-import team.thegoldenhoe.cameraobscura.common.capability.ICameraStorageNBT.PolaroidStackStorage;
+import team.thegoldenhoe.cameraobscura.item.nbt.CameraData;
 
 public class PolaroidStackItem extends Item {
+	private static final int MAX_STORAGE = 6;
 
 	public PolaroidStackItem(Settings settings) {
 		super(settings);
@@ -25,20 +23,16 @@ public class PolaroidStackItem extends Item {
 	@Override
 	@Environment(EnvType.CLIENT)
 	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-		int numPrintsRemaining = PolaroidStackStorage.MAX_SAVES;
 		if (stack.getTag() == null) {
 			tooltip.add(new LiteralText("Empty"));
 		}
 
-		ICameraStorageNBT.PolaroidStackStorage storage = stack.getCapability(CameraCapabilities.getPolaroidStackCapability(), null);
-		if (storage != null) {
-			ArrayList<String> paths = storage.getSavedImagePaths();
-			numPrintsRemaining = storage.getMaxSaves() - paths.size();
-			tooltip.add(new LiteralText("Prints Remaining: " + numPrintsRemaining).formatted(Formatting.AQUA, Formatting.BOLD));
-			tooltip.add(new LiteralText("Usable in polaroid camera").formatted(Formatting.DARK_PURPLE, Formatting.ITALIC));
-			if (!storage.canSave()) {
-				tooltip.add(new LiteralText("Contains Photo").formatted(Formatting.ITALIC));
-			}
+		List<String> paths = CameraData.getSavedPaths(stack);
+		int remaining = MAX_STORAGE - CameraData.getUses(stack);
+		tooltip.add(new LiteralText("Prints Remaining: " + remaining).formatted(Formatting.AQUA, Formatting.BOLD));
+		tooltip.add(new LiteralText("Usable in polaroid camera").formatted(Formatting.DARK_PURPLE, Formatting.ITALIC));
+		if (paths.size() > 0) {
+			tooltip.add(new LiteralText("Contains Photo").formatted(Formatting.ITALIC));
 		}
 	}
 

@@ -17,6 +17,7 @@ public enum CameraType {
 
 	CameraType(String textureName, ScreenHandlerType<?> screenHandlerType, SoundEvent sound) {
 		this.textureName = textureName;
+		this.screenHandlerType = screenHandlerType;
 		this.sound = sound;
 	}
 

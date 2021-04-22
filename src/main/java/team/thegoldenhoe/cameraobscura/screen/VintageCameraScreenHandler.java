@@ -5,7 +5,7 @@ import team.thegoldenhoe.cameraobscura.init.COScreenHandlers;
 import team.thegoldenhoe.cameraobscura.util.CameraType;
 
 public class VintageCameraScreenHandler extends SingleSlotCameraScreenHandler {
-	private static final String VINTAGE_CAMERA_TEXTURE = "polaroid_camera";
+	private static final String VINTAGE_CAMERA_TEXTURE = "vintage_camera";
 
 	public VintageCameraScreenHandler(int syncId, PlayerInventory playerInv) {
 		super(COScreenHandlers.VINTAGE_CAMERA, syncId, playerInv, CameraType.VINTAGE);

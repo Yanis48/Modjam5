@@ -3,6 +3,7 @@ package team.thegoldenhoe.cameraobscura.screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -22,7 +23,7 @@ public class DigitalCameraScreenHandler extends CameraScreenHandler {
 	public DigitalCameraScreenHandler(int syncId, PlayerInventory playerInv, ScreenHandlerContext context) {
 		super(COScreenHandlers.DIGITAL_CAMERA, syncId);
 		this.context = context;
-		this.inventory = playerInv;
+		this.inventory = new SimpleInventory(3);
 
 		// SD Card Slot
 		this.addSlot(new Slot(this.inventory, 0, 41, 53) {

@@ -1,7 +1,5 @@
 package team.thegoldenhoe.cameraobscura.client.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
@@ -17,10 +15,9 @@ public class CameraScreen<T extends CameraScreenHandler> extends HandledScreen<T
 
 	@Override
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.disableLighting();
+		this.renderBackground(matrices);
 		ClientUtils.bindTextureGui(this.handler.getScreenBackground());
-		this.drawTexture(matrices, this.x, this.y, 0, 0, this.x, this.y);
+		this.drawTexture(matrices, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
 	}
 
 	/**

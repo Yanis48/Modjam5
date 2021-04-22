@@ -3,6 +3,7 @@ package team.thegoldenhoe.cameraobscura.screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
@@ -22,7 +23,7 @@ public abstract class SingleSlotCameraScreenHandler extends CameraScreenHandler 
 	public SingleSlotCameraScreenHandler(ScreenHandlerType<?> screenType, int syncId, PlayerInventory playerInv, ScreenHandlerContext context, CameraType type) {
 		super(screenType, syncId);
 		this.context = context;
-		this.inventory = playerInv;
+		this.inventory = new SimpleInventory(1);
 		
 		// Stacks slot
 		this.addSlot(new Slot(this.inventory, 0, 80, 53) {

@@ -3,9 +3,8 @@ package team.thegoldenhoe.cameraobscura.init;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import team.thegoldenhoe.cameraobscura.Info;
+import team.thegoldenhoe.cameraobscura.CameraObscura;
 import team.thegoldenhoe.cameraobscura.block.entity.FrameBlockEntity;
 import team.thegoldenhoe.cameraobscura.block.entity.HangingFrameBlockEntity;
 import team.thegoldenhoe.cameraobscura.block.entity.HorizontalFrameBlockEntity;
@@ -28,6 +27,6 @@ public class COBlockEntities {
 	public static final BlockEntityType<HangingFrameBlockEntity> HANGING_FRAME = register("hanging_frame", BlockEntityType.Builder.create(HangingFrameBlockEntity::new, HANGING_FRAMES));
 
 	private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType.Builder<T> builder) {
-		return Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(Info.MODID, name), builder.build(null));
+		return Registry.register(Registry.BLOCK_ENTITY_TYPE, CameraObscura.id(name), builder.build(null));
 	}
 }

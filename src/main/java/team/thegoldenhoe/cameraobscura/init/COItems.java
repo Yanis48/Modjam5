@@ -4,9 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import team.thegoldenhoe.cameraobscura.Info;
+import team.thegoldenhoe.cameraobscura.CameraObscura;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilter;
 import team.thegoldenhoe.cameraobscura.client.PhotoFilters;
 import team.thegoldenhoe.cameraobscura.item.FilterItem;
@@ -49,7 +48,7 @@ public class COItems {
 	}
 
 	private static Item register(String name, Item item) {
-		return Registry.register(Registry.ITEM, new Identifier(Info.MODID, name), item);
+		return Registry.register(Registry.ITEM, CameraObscura.id(name), item);
 	}
 
 	static {

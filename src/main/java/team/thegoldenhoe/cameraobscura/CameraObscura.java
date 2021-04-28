@@ -2,6 +2,7 @@ package team.thegoldenhoe.cameraobscura;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.minecraft.util.Identifier;
 import team.thegoldenhoe.cameraobscura.init.*;
 import team.thegoldenhoe.cameraobscura.network.NetworkHandler;
 import team.thegoldenhoe.cameraobscura.network.ServerPhotoManager;
@@ -21,5 +22,9 @@ public class CameraObscura implements ModInitializer {
 		ServerLifecycleEvents.SERVER_STARTED.register((server -> photoManager = new ServerPhotoManager(server)));
 
 		NetworkHandler.init();
+	}
+
+	public static Identifier id(String name) {
+		return new Identifier(Info.MODID, name);
 	}
 }

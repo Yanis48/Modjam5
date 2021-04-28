@@ -44,7 +44,7 @@ public abstract class CameraItem extends Item {
 			return TypedActionResult.success(stack);
 		}
 
-		if (this.canTakePhoto(stack)) {
+		if (this.canTakePhoto(stack, user)) {
 			UUID photoName = UUID.randomUUID();
 			if (world.isClient()) {
 				this.takePicture(stack, photoName);
@@ -59,7 +59,7 @@ public abstract class CameraItem extends Item {
 		return this.type;
 	}
 
-	protected abstract boolean canTakePhoto(ItemStack camera);
+	protected abstract boolean canTakePhoto(ItemStack camera, PlayerEntity user);
 
 	protected void onTakePicture(ItemStack camera, PlayerEntity user, UUID photoName) {
 		user.world.addParticle(ParticleTypes.FIREWORK, user.getPos().getX() + user.world.random.nextFloat(), user.getPos().getY() + user.world.random.nextFloat() + 1, user.getPos().getZ() + user.world.random.nextFloat(), 0.0D, 0.0D, 0.0D);

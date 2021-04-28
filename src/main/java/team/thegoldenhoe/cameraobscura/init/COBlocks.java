@@ -5,9 +5,8 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import team.thegoldenhoe.cameraobscura.Info;
+import team.thegoldenhoe.cameraobscura.CameraObscura;
 import team.thegoldenhoe.cameraobscura.block.HorizontalFrameBlock;
 import team.thegoldenhoe.cameraobscura.block.FrameBlock;
 import team.thegoldenhoe.cameraobscura.block.HangingFrameBlock;
@@ -61,6 +60,6 @@ public class COBlocks {
 	}
 
 	private static Block register(String name, Block block) {
-		return Registry.register(Registry.BLOCK, new Identifier(Info.MODID, name), block);
+		return Registry.register(Registry.BLOCK, CameraObscura.id(name), block);
 	}
 }

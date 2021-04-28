@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import team.thegoldenhoe.cameraobscura.item.VintagePhotoItem;
 import team.thegoldenhoe.cameraobscura.screen.VintageCameraScreenHandler;
 import team.thegoldenhoe.cameraobscura.util.CameraType;
@@ -18,13 +19,17 @@ public class VintageCameraItem extends CameraItem {
     }
 
     @Override
-    protected boolean canTakePhoto(ItemStack camera) {
+    protected boolean canTakePhoto(ItemStack camera, PlayerEntity user) {
         ItemStack stack = CameraStorage.getItem(camera);
         if (stack.getItem() instanceof VintagePhotoItem) {
             if (VintagePhotoItem.getPhoto(stack) == null) {
                 return true;
+            } else {
+                user.sendMessage(new TranslatableText("cameraobscura.chat.full_paper"), true);
+                return false;
             }
         }
+        user.sendMessage(new TranslatableText("cameraobscura.chat.missing_paper"), true);
         return false;
     }
 

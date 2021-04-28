@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import team.thegoldenhoe.cameraobscura.item.PolaroidStackItem;
 import team.thegoldenhoe.cameraobscura.screen.PolaroidCameraScreenHandler;
 import team.thegoldenhoe.cameraobscura.util.CameraType;
@@ -18,13 +19,18 @@ public class PolaroidCameraItem extends CameraItem {
     }
 
     @Override
-    protected boolean canTakePhoto(ItemStack camera) {
+    protected boolean canTakePhoto(ItemStack camera, PlayerEntity user) {
         ItemStack stack = CameraStorage.getItem(camera);
         if (stack.getItem() instanceof PolaroidStackItem) {
             if (PolaroidStackItem.getRemainingUses(stack) > 0) {
                 return true;
+            } else {
+                // should never happen without commands, as polaroid stacks are removed once totally used
+                user.sendMessage(new TranslatableText("cameraobscura.chat.full_stacks"), true);
+                return false;
             }
         }
+        user.sendMessage(new TranslatableText("cameraobscura.chat.missing_stacks"), true);
         return false;
     }
 

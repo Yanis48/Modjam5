@@ -1,9 +1,13 @@
 package team.thegoldenhoe.cameraobscura;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import team.thegoldenhoe.cameraobscura.init.*;
+import team.thegoldenhoe.cameraobscura.network.NetworkHandler;
+import team.thegoldenhoe.cameraobscura.network.ServerPhotoManager;
 
 public class CameraObscura implements ModInitializer {
+	public static ServerPhotoManager photoManager;
 
 	@Override
 	public void onInitialize() {
@@ -13,36 +17,9 @@ public class CameraObscura implements ModInitializer {
 		new COItemGroups();
 		new COScreenHandlers();
 		new COSounds();
+
+		ServerLifecycleEvents.SERVER_STARTED.register((server -> photoManager = new ServerPhotoManager(server)));
+
+		NetworkHandler.init();
 	}
-
-
-    @SidedProxy(clientSide = Info.CLIENT_PROXY, serverSide = Info.SERVER_PROXY)
-    public static CommonProxy proxy;
-
-    public static Block blockProps;
-    public static Block blockFake;
-
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        logger = event.getModLog();
-        proxy.preInit();
-
-        ForgeRegistries.BLOCKS.register(blockProps = new BlockProps().setRegistryName("blockProps"));
-        ForgeRegistries.BLOCKS.register(blockFake = new BlockFake().setRegistryName("blockFake"));
-
-        CameraCapabilities.register();
-        
-        TileTypeMap.register();
-        ModelHandler.loadModels();
-        
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, new COGuiHandler());
-    }
-
-    @EventHandler
-    public void init(FMLInitializationEvent event) {
-        CONetworkHandler.init();
-        proxy.init();
-        MinecraftForge.EVENT_BUS.register(new CommonEvents());
-    }
-
 }

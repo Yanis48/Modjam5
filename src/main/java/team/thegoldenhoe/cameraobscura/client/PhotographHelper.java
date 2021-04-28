@@ -2,104 +2,111 @@ package team.thegoldenhoe.cameraobscura.client;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.util.ScreenshotUtils;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.collection.DefaultedList;
+import team.thegoldenhoe.cameraobscura.item.camera.CameraItem;
+import team.thegoldenhoe.cameraobscura.item.FilterItem;
+import team.thegoldenhoe.cameraobscura.item.camera.CameraStorage;
+import team.thegoldenhoe.cameraobscura.network.NetworkHandler;
+import team.thegoldenhoe.cameraobscura.util.Utils;
 
 import javax.imageio.ImageIO;
-
-import org.apache.commons.lang3.tuple.Pair;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ScreenShotHelper;
-import team.thegoldenhoe.cameraobscura.CSModelMetadata;
-import team.thegoldenhoe.cameraobscura.Utils;
-import team.thegoldenhoe.cameraobscura.common.capability.CameraCapabilities;
-import team.thegoldenhoe.cameraobscura.common.capability.ICameraNBT;
-import team.thegoldenhoe.cameraobscura.common.item.ItemProps;
-import team.thegoldenhoe.cameraobscura.common.network.CONetworkHandler;
-import team.thegoldenhoe.cameraobscura.common.network.CameraTypes;
-import team.thegoldenhoe.cameraobscura.common.network.MessagePhotoDataToServer;
-import team.thegoldenhoe.cameraobscura.common.network.PhotoDataHandler;
-import team.thegoldenhoe.cameraobscura.utils.ModelHandler;
 
 public class PhotographHelper {
 
 	/**
 	 * Captures a screenshot (with GUI hidden) and saves it to the server's screenshots folder
 	 */
-	public static void capturePhotograph() {
+	public static void capturePhotograph(ItemStack camera, UUID photoName) {
 		try {
-			Minecraft mc = Minecraft.getMinecraft();
-			ItemStack stack = mc.player.getHeldItemMainhand();
-//			if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
-//				stack = mc.player.getHeldItemOffhand();
-//				if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
-//					System.err.println("CAMERA FAIL!");
-//					return;
-//				}
-//			}
-			
-			if (!Utils.isCamera(stack)) {
-				stack = mc.player.getHeldItemOffhand();
+			final MinecraftClient client = MinecraftClient.getInstance();
+			final List<PhotoFilter> filters = new ArrayList<>(2);
+
+			switch (((CameraItem) camera.getItem()).getType()) {
+				case DIGITAL:
+					DefaultedList<ItemStack> stacks = CameraStorage.getItems(camera);
+					stacks.forEach(stack -> {
+						if (Utils.isFilter(stack)) {
+							filters.add(((FilterItem) stack.getItem()).getFilter());
+						}
+					});
+					break;
+				case POLAROID:
+					filters.add(PhotoFilters.VINTAGE);
+					break;
+				case VINTAGE:
+					filters.add(PhotoFilters.BLACK_AND_WHITE);
+					break;
+				default: break;
 			}
 
-			List<PhotoFilter> filters = new ArrayList<PhotoFilter>(2);
-			CSModelMetadata data = ModelHandler.getModelFromStack(stack);
-			CameraTypes type = data.getCameraType();
-			ICameraNBT cameraCap = stack.getCapability(CameraCapabilities.getCameraCapability(), null);
-			if (cameraCap != null) {
-				// Pretty ghetto but for modjam just check camera types and choose filters
-				// accordingly. Eventually we should move this all over to capabilities.
-				if (type == CameraTypes.DIGITAL) {
-					Pair<PhotoFilter, PhotoFilter> filterPair = cameraCap.getFilters();
-					if (filterPair.getLeft() != null) {
-						filters.add(filterPair.getLeft());
-					}
-					if (filterPair.getRight() != null) {
-						filters.add(filterPair.getRight());
-					}	
-				} else if (type == CameraTypes.VINTAGE) {
-					filters.add(PhotoFilters.BLACK_AND_WHITE);
-				} else if (type == CameraTypes.POLAROID) {
-					filters.add(PhotoFilters.VINTAGE);
+			NativeImage screenshot = ScreenshotUtils.takeScreenshot(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight(), client.getFramebuffer());
+			BufferedImage destImage = new BufferedImage(screenshot.getWidth(), screenshot.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+			for (int x = 0; x < screenshot.getWidth(); x++) {
+				for (int y = 0; y < screenshot.getHeight(); y++) {
+					int argb = abgrToArgb(screenshot.getPixelColor(x, y));
+					destImage.setRGB(x, y, argb);
 				}
 			}
 
-			BufferedImage screenshot = ScreenShotHelper.createScreenshot(mc.displayWidth, mc.displayHeight, mc.getFramebuffer());
 			for (PhotoFilter filter : filters) {
-				screenshot = filter.getFilteredImage(screenshot);
+				destImage = filter.getFilteredImage(destImage);
 			}
+
+			saveImage(destImage);
 
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			ImageIO.write(screenshot, "png", stream);
+			ImageIO.write(destImage, "png", stream);
 			byte[] imageBytes = stream.toByteArray();
-			ByteBuffer buff = ByteBuffer.wrap(imageBytes);
-			short order = 0;
-			int bytePacketLen = 30000;
-			int uuid = PhotoDataHandler.getUniqueID();
+			ByteBuffer buffer = ByteBuffer.wrap(imageBytes);
+			int bytePacketLength = 30000;
 
-			while (buff.hasRemaining()) {
-				byte[] subImageBytes = new byte[buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining()];
-				buff.get(subImageBytes, 0, buff.remaining() > bytePacketLen ? bytePacketLen : buff.remaining());
-				stack = mc.player.getHeldItemMainhand();
-//				if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
-//					stack = mc.player.getHeldItemOffhand();
-//					if (stack.isEmpty() || !(stack.getItem() instanceof ItemProps)) {
-//						System.err.println("CAMERA FAIL!");
-//						return;
-//					}
-//				}
-				if (!Utils.isCamera(stack)) {
-					stack = mc.player.getHeldItemOffhand();
-				}
+			while (buffer.hasRemaining()) {
+				byte[] subImageBytes = new byte[Math.min(buffer.remaining(), bytePacketLength)];
+				buffer.get(subImageBytes, 0, Math.min(buffer.remaining(), bytePacketLength));
 
-				MessagePhotoDataToServer msg = new MessagePhotoDataToServer(uuid, "test", subImageBytes, order, imageBytes.length, mc.player.getUniqueID());
-				CONetworkHandler.NETWORK.sendToServer(msg);
-				order++;
+				PacketByteBuf buf = PacketByteBufs.create();
+				buf.writeUuid(photoName);
+				buf.writeByteArray(subImageBytes);
+				buf.writeBoolean(buffer.remaining() == 0);
+
+				ClientPlayNetworking.send(NetworkHandler.SEND_PHOTO_CHANNEL, buf);
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static int abgrToArgb(int abgr) {
+		int r = (abgr >> 16) & 0xFF;
+		int b = abgr & 0xFF;
+		return (abgr & 0xFF00FF00) | (b << 16) | r;
+	}
+
+	public static void saveImage(BufferedImage image) {
+		final MinecraftClient client = MinecraftClient.getInstance();
+
+		File directory = new File(client.runDirectory, "screenshots");
+		directory.mkdir();
+
+		File file = Utils.getTimestampedPNGFileForDirectory(directory);
+
+		try {
+			ImageIO.write(image,"png", file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

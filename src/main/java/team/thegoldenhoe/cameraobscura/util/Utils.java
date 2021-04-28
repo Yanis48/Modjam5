@@ -7,6 +7,7 @@ import java.util.Date;
 
 import net.minecraft.item.ItemStack;
 import team.thegoldenhoe.cameraobscura.item.camera.CameraItem;
+import team.thegoldenhoe.cameraobscura.item.FilterItem;
 
 public class Utils {
 
@@ -35,5 +36,9 @@ public class Utils {
 
 	public static boolean isCamera(ItemStack stack) {
 		return !stack.isEmpty() && (stack.getItem() instanceof CameraItem);
+	}
+
+	public static boolean isFilter(ItemStack stack) {
+		return !stack.isEmpty() && (stack.getItem() instanceof FilterItem);
 	}
 }

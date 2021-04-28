@@ -1,17 +1,18 @@
 package team.thegoldenhoe.cameraobscura.item;
 
 import java.util.List;
+import java.util.UUID;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import team.thegoldenhoe.cameraobscura.item.nbt.CameraData;
 
 public class VintagePhotoItem extends Item {
 
@@ -28,38 +29,23 @@ public class VintagePhotoItem extends Item {
 			return;
 		}
 
-		if (CameraData.getPhoto(stack) != null) {
+		if (getPhoto(stack) != null) {
 			tooltip.add(new LiteralText("Contains Photo").formatted(Formatting.ITALIC));
 		}
 	}
 
-	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-		return CameraCapabilities.getProvider(CameraCapabilities.getVintageStorageCapability(), () -> {
-			VintageStorage ret = new VintageStorage() {
+	public static UUID getPhoto(ItemStack stack) {
+		CompoundTag root = stack.getTag();
+		if (root != null) {
+			return root.getUuid("Photo");
+		}
+		return null;
+	}
 
-				@Override
-				public void saveImage(String path, EntityPlayer player) {
-					super.saveImage(path, player);
-					stack.setTagCompound(serializeNBT());
-
-					if (!player.world.isRemote) {
-						stack.getTagCompound().setString("Photo", path);
-					}
-				}
-			};
-
-			if (stack.hasTagCompound()) {
-				ret.deserializeNBT(stack.getTagCompound());
-				// If a photo is already saved, update nbt to reflect that.
-				// Prevents dupe saving.
-				if (stack.getTagCompound().hasKey("Photo")) {
-					String path = stack.getTagCompound().getString("Photo");
-					ret.getSavedImagePaths().add(path);
-					ret.serializeNBT();
-				}
-			}
-			return ret;
-		});
+	public static void setPhoto(ItemStack stack, UUID photoName) {
+		CompoundTag root = stack.getOrCreateTag();
+		if (root != null) {
+			root.putUuid("Photo", photoName);
+		}
 	}
 }

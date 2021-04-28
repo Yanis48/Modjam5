@@ -5,24 +5,20 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import team.thegoldenhoe.cameraobscura.item.PolaroidStackItem;
 import team.thegoldenhoe.cameraobscura.item.VintagePhotoItem;
+import team.thegoldenhoe.cameraobscura.item.camera.CameraStorage;
 import team.thegoldenhoe.cameraobscura.util.CameraType;
 
 public abstract class SingleSlotCameraScreenHandler extends CameraScreenHandler {
-	protected final ScreenHandlerContext context;
+	private final ItemStack camera;
 	protected Inventory inventory;
 
-	public SingleSlotCameraScreenHandler(ScreenHandlerType<?> screenType, int syncId, PlayerInventory playerInv, CameraType type) {
-		this(screenType, syncId, playerInv, ScreenHandlerContext.EMPTY, type);
-	}
-
-	public SingleSlotCameraScreenHandler(ScreenHandlerType<?> screenType, int syncId, PlayerInventory playerInv, ScreenHandlerContext context, CameraType type) {
+	public SingleSlotCameraScreenHandler(ScreenHandlerType<?> screenType, int syncId, PlayerInventory playerInv, ItemStack camera, CameraType type) {
 		super(screenType, syncId);
-		this.context = context;
+		this.camera = camera;
 		this.inventory = new SimpleInventory(1);
 		
 		// Stacks slot
@@ -53,6 +49,15 @@ public abstract class SingleSlotCameraScreenHandler extends CameraScreenHandler 
 		for (int i = 0; i < 9; ++i) {
 			this.addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
+
+		ItemStack item = CameraStorage.getItem(this.camera);
+		this.inventory.setStack(0, item);
+	}
+
+	@Override
+	public void close(PlayerEntity player) {
+		this.camera.setTag(CameraStorage.setItems(this.camera, this.inventory));
+		super.close(player);
 	}
 
 	@Override

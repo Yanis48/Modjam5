@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import net.minecraft.item.ItemStack;
-import team.thegoldenhoe.cameraobscura.item.CameraItem;
+import team.thegoldenhoe.cameraobscura.item.camera.CameraItem;
 
 public class Utils {
 

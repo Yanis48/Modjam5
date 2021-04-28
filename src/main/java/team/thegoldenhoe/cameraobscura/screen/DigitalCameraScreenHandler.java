@@ -5,24 +5,25 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.collection.DefaultedList;
 import team.thegoldenhoe.cameraobscura.item.FilterItem;
 import team.thegoldenhoe.cameraobscura.item.SdCardItem;
 import team.thegoldenhoe.cameraobscura.init.COScreenHandlers;
+import team.thegoldenhoe.cameraobscura.item.camera.CameraStorage;
 
 public class DigitalCameraScreenHandler extends CameraScreenHandler {
 	private static final String DIGITAL_CAMERA_TEXTURE = "digital_camera";
-	protected final ScreenHandlerContext context;
-	private Inventory inventory;
+	private final ItemStack camera;
+	private final Inventory inventory;
 
 	public DigitalCameraScreenHandler(int syncId, PlayerInventory playerInv) {
-		this(syncId, playerInv, ScreenHandlerContext.EMPTY);
+		this(syncId, playerInv, ItemStack.EMPTY);
 	}
 
-	public DigitalCameraScreenHandler(int syncId, PlayerInventory playerInv, ScreenHandlerContext context) {
+	public DigitalCameraScreenHandler(int syncId, PlayerInventory playerInv, ItemStack camera) {
 		super(COScreenHandlers.DIGITAL_CAMERA, syncId);
-		this.context = context;
+		this.camera = camera;
 		this.inventory = new SimpleInventory(3);
 
 		// SD Card Slot
@@ -67,6 +68,17 @@ public class DigitalCameraScreenHandler extends CameraScreenHandler {
 		for (int i = 0; i < 9; ++i) {
 			this.addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
+
+		DefaultedList<ItemStack> items = CameraStorage.getItems(this.camera);
+		for (int i = 0; i < items.size(); i++) {
+			this.inventory.setStack(i, items.get(i));
+		}
+	}
+
+	@Override
+	public void close(PlayerEntity player) {
+		this.camera.setTag(CameraStorage.setItems(this.camera, this.inventory));
+		super.close(player);
 	}
 
 	@Override

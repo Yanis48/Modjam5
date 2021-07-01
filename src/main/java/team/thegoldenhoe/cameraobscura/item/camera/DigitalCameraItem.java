@@ -39,7 +39,7 @@ public class DigitalCameraItem extends CameraItem {
         ItemStack stack = CameraStorage.getItems(camera).get(0);
         if (stack.getItem() instanceof SdCardItem) {
             SdCardItem.savePhoto(stack, photoName);
-            camera.setTag(CameraStorage.setItem(camera, 0, stack));
+            CameraStorage.setItem(camera, 0, stack);
         }
     }
 

@@ -13,7 +13,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.util.ScreenshotUtils;
+import net.minecraft.client.util.ScreenshotRecorder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.collection.DefaultedList;
@@ -53,7 +53,7 @@ public class PhotographHelper {
 				default: break;
 			}
 
-			NativeImage screenshot = ScreenshotUtils.takeScreenshot(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight(), client.getFramebuffer());
+			NativeImage screenshot = ScreenshotRecorder.takeScreenshot(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight(), client.getFramebuffer());
 			BufferedImage destImage = new BufferedImage(screenshot.getWidth(), screenshot.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
 			for (int x = 0; x < screenshot.getWidth(); x++) {

@@ -9,9 +9,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -36,7 +36,7 @@ public class SdCardItem extends Item {
 	}
 
 	public static int getUses(ItemStack stack) {
-		CompoundTag root = stack.getTag();
+		NbtCompound root = stack.getTag();
 		if (root != null) {
 			return root.getInt("Uses");
 		}
@@ -49,22 +49,22 @@ public class SdCardItem extends Item {
 
 	public static List<UUID> getPhotos(ItemStack stack) {
 		List<UUID> photos = new ArrayList<>();
-		CompoundTag root = stack.getTag();
+		NbtCompound root = stack.getTag();
 		if (root != null) {
-			ListTag list = root.getList("Photos", 11);
+			NbtList list = root.getList("Photos", 11);
 			list.forEach(e -> photos.add(UUID.fromString(e.toString())));
 		}
 		return photos;
 	}
 
 	public static void savePhoto(ItemStack stack, UUID photoName) {
-		CompoundTag root = stack.getOrCreateTag();
+		NbtCompound root = stack.getOrCreateTag();
 		if (root != null) {
 			int uses = getUses(stack);
 			root.putInt("Uses", uses + 1);
 
 			if (!root.contains("Photos", 9)) {
-				root.put("Photos", new ListTag());
+				root.put("Photos", new NbtList());
 			}
 			root.getList("Photos", 11).add(NbtHelper.fromUuid(photoName));
 		}

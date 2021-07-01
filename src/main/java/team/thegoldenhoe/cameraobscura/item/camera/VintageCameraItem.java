@@ -39,7 +39,7 @@ public class VintageCameraItem extends CameraItem {
         ItemStack stack = CameraStorage.getItem(camera);
         if (stack.getItem() instanceof VintagePhotoItem) {
             VintagePhotoItem.setPhoto(stack, photoName);
-            camera.setTag(CameraStorage.setItem(camera, 0, stack));
+            CameraStorage.setItem(camera, 0, stack);
         }
     }
 

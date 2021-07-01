@@ -77,7 +77,7 @@ public class DigitalCameraScreenHandler extends CameraScreenHandler {
 
 	@Override
 	public void close(PlayerEntity player) {
-		this.camera.setTag(CameraStorage.setItems(this.camera, this.inventory));
+		CameraStorage.setItems(this.camera, this.inventory);
 		super.close(player);
 	}
 
@@ -102,7 +102,7 @@ public class DigitalCameraScreenHandler extends CameraScreenHandler {
 			if (stack_1.isEmpty()) {
 				slot.setStack(ItemStack.EMPTY);
 			} else {
-				slot.onStackChanged(stack, stack_1);
+				slot.onQuickTransfer(stack, stack_1);
 			}
 
 			if (stack_1.getCount() == stack.getCount()) {

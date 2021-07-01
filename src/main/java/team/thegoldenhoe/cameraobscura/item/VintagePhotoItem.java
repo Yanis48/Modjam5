@@ -8,7 +8,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -35,7 +35,7 @@ public class VintagePhotoItem extends Item {
 	}
 
 	public static UUID getPhoto(ItemStack stack) {
-		CompoundTag root = stack.getTag();
+		NbtCompound root = stack.getTag();
 		if (root != null) {
 			return root.getUuid("Photo");
 		}
@@ -43,7 +43,7 @@ public class VintagePhotoItem extends Item {
 	}
 
 	public static void setPhoto(ItemStack stack, UUID photoName) {
-		CompoundTag root = stack.getOrCreateTag();
+		NbtCompound root = stack.getOrCreateTag();
 		if (root != null) {
 			root.putUuid("Photo", photoName);
 		}

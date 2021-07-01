@@ -40,7 +40,7 @@ public class PolaroidCameraItem extends CameraItem {
         ItemStack stack = CameraStorage.getItem(camera);
         if (stack.getItem() instanceof PolaroidStackItem) {
             PolaroidStackItem.savePhoto(stack, user, photoName);
-            camera.setTag(CameraStorage.setItem(camera, 0, stack));
+            CameraStorage.setItem(camera, 0, stack);
         }
     }
 

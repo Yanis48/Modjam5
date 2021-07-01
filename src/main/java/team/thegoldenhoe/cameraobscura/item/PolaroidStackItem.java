@@ -9,7 +9,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -35,7 +35,7 @@ public class PolaroidStackItem extends Item {
 	}
 
 	public static int getUses(ItemStack stack) {
-		CompoundTag root = stack.getTag();
+		NbtCompound root = stack.getTag();
 		if (root != null) {
 			return root.getInt("Uses");
 		}
@@ -47,14 +47,14 @@ public class PolaroidStackItem extends Item {
 	}
 
 	public static void savePhoto(ItemStack stack, PlayerEntity user, UUID photoName) {
-		CompoundTag root = stack.getOrCreateTag();
+		NbtCompound root = stack.getOrCreateTag();
 		if (root != null) {
 			int uses = getUses(stack);
 			root.putInt("Uses", uses + 1);
 
 			ItemStack polaroidPhoto = new ItemStack(COItems.POLAROID_PHOTO);
 			PolaroidPhotoItem.setPhoto(polaroidPhoto, photoName);
-			user.inventory.insertStack(polaroidPhoto);
+			user.getInventory().insertStack(polaroidPhoto);
 
 			if (getRemainingUses(stack) == 0) {
 				stack.decrement(1);
